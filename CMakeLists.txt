@@ -241,6 +241,7 @@ src/addons/board_led.cpp
 src/addons/bootsel_button.cpp
 src/addons/focus_mode.cpp
 src/addons/buzzerspeaker.cpp
+src/addons/ds4uartbridge.cpp
 src/addons/dualdirectional.cpp
 src/addons/keyboard_host.cpp
 src/addons/keyboard_host_listener.cpp

@@ -843,6 +843,13 @@ message ReactiveLEDOptions
     repeated ReactiveLEDInfo leds = 2 [(nanopb).max_count = 10];
 }
 
+message DS4UARTBridgeOptions
+{
+    optional bool enabled = 1 [default = false];
+    optional int32 txPin = 2 [default = -1];
+    optional int32 rxPin = 3 [default = -1];
+}
+
 message AddonOptions
 {
     optional BootselButtonOptions bootselButtonOptions = 1;
@@ -873,6 +880,7 @@ message AddonOptions
     optional DRV8833RumbleOptions drv8833RumbleOptions = 26;
     optional ReactiveLEDOptions reactiveLEDOptions = 27;
     optional GamepadUSBHostOptions gamepadUSBHostOptions = 28;
+    optional DS4UARTBridgeOptions ds4UartBridgeOptions = 29;
 }
 
 message MigrationHistory
