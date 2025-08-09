@@ -1679,6 +1679,11 @@ std::string setAddonOptions()
     docToValue(drv8833RumbleOptions.dutyMin, doc, "drv8833RumbleDutyMin");
     docToValue(drv8833RumbleOptions.dutyMax, doc, "drv8833RumbleDutyMax");
 
+    DS4UARTBridgeOptions& ds4UartBridgeOptions = Storage::getInstance().getAddonOptions().ds4UartBridgeOptions;
+    docToValue(ds4UartBridgeOptions.enabled, doc, "DS4UARTBridgeEnabled");
+    docToPin(ds4UartBridgeOptions.txPin, doc, "ds4uarttx");
+    docToPin(ds4UartBridgeOptions.rxPin, doc, "ds4uartrx");
+
     EventManager::getInstance().triggerEvent(new GPStorageSaveEvent(true));
 
     return serialize_json(doc);
@@ -2107,6 +2112,11 @@ std::string getAddonOptions()
     writeDoc(doc, "drv8833RumblePWMFrequency", drv8833RumbleOptions.pwmFrequency);
     writeDoc(doc, "drv8833RumbleDutyMin", drv8833RumbleOptions.dutyMin);
     writeDoc(doc, "drv8833RumbleDutyMax", drv8833RumbleOptions.dutyMax);
+
+    const DS4UARTBridgeOptions& ds4UartBridgeOptions = Storage::getInstance().getAddonOptions().ds4UartBridgeOptions;
+    writeDoc(doc, "DS4UARTBridgeEnabled", ds4UartBridgeOptions.enabled);
+    writeDoc(doc, "ds4uarttx", cleanPin(ds4UartBridgeOptions.txPin));
+    writeDoc(doc, "ds4uartrx", cleanPin(ds4UartBridgeOptions.rxPin));
 
     return serialize_json(doc);
 }
