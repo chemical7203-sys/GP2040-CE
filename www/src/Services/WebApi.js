@@ -677,6 +677,15 @@ function sanitizeRequest(request) {
 	return newRequest;
 }
 
+async function getLiveState() {
+	try {
+		const response = await Http.get(`${baseUrl}/api/getLiveState`);
+		return response.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 export default {
 	resetSettings,
 	getDisplayOptions,
@@ -714,4 +723,5 @@ export default {
 	getHeldPins,
 	abortGetHeldPins,
 	reboot,
+	getLiveState,
 };

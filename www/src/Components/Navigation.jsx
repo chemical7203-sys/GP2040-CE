@@ -131,6 +131,10 @@ const Navigation = () => {
 						>
 							{t('Navigation:github-label')}
 						</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item as={NavLink} eventKey={eventKey++} to="/debugger">
+							{t('Navigation:debugger-label')}
+						</NavDropdown.Item>
 					</NavDropdown>
 				</Nav>
 				<Nav className="navbar-actions">

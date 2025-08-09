@@ -415,6 +415,31 @@ std::string getUsedPins()
     return serialize_json(doc);
 }
 
+std::string getLiveState()
+{
+    const size_t capacity = JSON_OBJECT_SIZE(50);
+    DynamicJsonDocument doc(capacity);
+    Gamepad *gamepad = Storage::getInstance().GetGamepad();
+
+    doc["dpad"] = gamepad->state.dpad;
+    doc["buttons"] = gamepad->state.buttons;
+    doc["lx"] = gamepad->state.lx;
+    doc["ly"] = gamepad->state.ly;
+    doc["rx"] = gamepad->state.rx;
+    doc["ry"] = gamepad->state.ry;
+    doc["lt"] = gamepad->state.lt;
+    doc["rt"] = gamepad->state.rt;
+    doc["accel_x"] = gamepad->state.accel_x;
+    doc["accel_y"] = gamepad->state.accel_y;
+    doc["accel_z"] = gamepad->state.accel_z;
+    doc["gyro_x"] = gamepad->state.gyro_x;
+    doc["gyro_y"] = gamepad->state.gyro_y;
+    doc["gyro_z"] = gamepad->state.gyro_z;
+    doc["gpio"] = gpio_get_all();
+
+    return serialize_json(doc);
+}
+
 std::string setDisplayOptions(DisplayOptions& displayOptions)
 {
     DynamicJsonDocument doc = get_post_data();
@@ -2412,6 +2437,7 @@ static const std::pair<const char*, HandlerFuncPtr> handlerFuncs[] =
     { "/api/getSplashImage", getSplashImage },
     { "/api/getFirmwareVersion", getFirmwareVersion },
     { "/api/getMemoryReport", getMemoryReport },
+    { "/api/getLiveState", getLiveState },
     { "/api/getHeldPins", getHeldPins },
     { "/api/abortGetHeldPins", abortGetHeldPins },
     { "/api/getUsedPins", getUsedPins },
