@@ -267,17 +267,14 @@ bool PS4Driver::process(Gamepad * gamepad) {
     }
     ps4Report.touchpad_data = touchpadData;
 
-    if (gamepad->auxState.sensors.accelerometer.enabled) {
-        ps4Report.sensor_data.accelerometer.x = ((gamepad->auxState.sensors.accelerometer.x & 0xFF) << 8) | ((gamepad->auxState.sensors.accelerometer.x & 0xFF00) >> 8);
-        ps4Report.sensor_data.accelerometer.y = ((gamepad->auxState.sensors.accelerometer.y & 0xFF) << 8) | ((gamepad->auxState.sensors.accelerometer.y & 0xFF00) >> 8);
-        ps4Report.sensor_data.accelerometer.z = ((gamepad->auxState.sensors.accelerometer.z & 0xFF) << 8) | ((gamepad->auxState.sensors.accelerometer.z & 0xFF00) >> 8);
-    }
+    // Motion sensor data is now populated by the DS4UARTBridge addon into the main GamepadState
+    ps4Report.sensor_data.accelerometer.x = ((gamepad->state.accel_x & 0xFF) << 8) | ((gamepad->state.accel_x & 0xFF00) >> 8);
+    ps4Report.sensor_data.accelerometer.y = ((gamepad->state.accel_y & 0xFF) << 8) | ((gamepad->state.accel_y & 0xFF00) >> 8);
+    ps4Report.sensor_data.accelerometer.z = ((gamepad->state.accel_z & 0xFF) << 8) | ((gamepad->state.accel_z & 0xFF00) >> 8);
 
-    if (gamepad->auxState.sensors.gyroscope.enabled) {
-        ps4Report.sensor_data.gyroscope.x = ((gamepad->auxState.sensors.gyroscope.x & 0xFF) << 8) | ((gamepad->auxState.sensors.gyroscope.x & 0xFF00) >> 8);
-        ps4Report.sensor_data.gyroscope.y = ((gamepad->auxState.sensors.gyroscope.y & 0xFF) << 8) | ((gamepad->auxState.sensors.gyroscope.y & 0xFF00) >> 8);
-        ps4Report.sensor_data.gyroscope.z = ((gamepad->auxState.sensors.gyroscope.z & 0xFF) << 8) | ((gamepad->auxState.sensors.gyroscope.z & 0xFF00) >> 8);
-    }
+    ps4Report.sensor_data.gyroscope.x = ((gamepad->state.gyro_x & 0xFF) << 8) | ((gamepad->state.gyro_x & 0xFF00) >> 8);
+    ps4Report.sensor_data.gyroscope.y = ((gamepad->state.gyro_y & 0xFF) << 8) | ((gamepad->state.gyro_y & 0xFF00) >> 8);
+    ps4Report.sensor_data.gyroscope.z = ((gamepad->state.gyro_z & 0xFF) << 8) | ((gamepad->state.gyro_z & 0xFF00) >> 8);
 
     // Wake up TinyUSB device
     if (tud_suspended())

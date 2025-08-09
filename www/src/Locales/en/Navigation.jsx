@@ -1,6 +1,7 @@
 export default {
 	'add-ons-label': 'Add-Ons Configuration',
 	'backup-label': 'Data Backup and Restoration',
+	'debugger-label': 'Debugger',
 	'config-label': 'Configuration',
 	'custom-theme-label': 'Custom LED Theme',
 	'display-config-label': 'Display Configuration',

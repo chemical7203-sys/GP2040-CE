@@ -16,6 +16,7 @@ import AddonsConfigPage from './Pages/AddonsConfigPage';
 import BackupPage from './Pages/BackupPage';
 import PlaygroundPage from './Pages/PlaygroundPage';
 import InputMacroAddonPage from './Pages/InputMacroAddonPage';
+import DebuggerPage from './Pages/DebuggerPage';
 
 import './App.scss';
 
@@ -41,6 +42,7 @@ const App = () => {
 						<Route path="/backup" element={<BackupPage />} />
 						<Route path="/playground" element={<PlaygroundPage />} />
 						<Route path="/macro" element={<InputMacroAddonPage />} />
+						<Route path="/debugger" element={<DebuggerPage />} />
 					</Routes>
 				</div>
 			</Router>
