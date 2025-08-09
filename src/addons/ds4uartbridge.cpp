@@ -2,21 +2,19 @@
 #include "storagemanager.h"
 #include "hardware/uart.h"
 #include "hardware/gpio.h"
-#include "pico/stdlib.h" // For uart_get_instance
+#include "pico/stdlib.h"
 #include "config.pb.h"
 
 #define UART_ID uart0
-#define BAUDRATE 115200 // Match this with the Python script
+#define BAUDRATE 115200
 #define START_BYTE 0xA5
 
-// Define a simple struct to match the PC-side protocol
 #pragma pack(push, 1)
 struct UARTData {
     uint8_t startByte;
     uint32_t buttons;
     uint16_t lx, ly, rx, ry;
     uint8_t lt, rt;
-    // Gyro/Accel would go here in the future
     uint8_t checksum;
 };
 #pragma pack(pop)
@@ -34,29 +32,29 @@ void DS4UARTBridgeAddon::setup() {
         return;
     }
 
-    // Initialize UART
     uart_init(UART_ID, BAUDRATE);
     gpio_set_function(uartOptions.txPin, GPIO_FUNC_UART);
     gpio_set_function(uartOptions.rxPin, GPIO_FUNC_UART);
 }
 
 void DS4UARTBridgeAddon::preprocess() {
+    // Intentionally commented out for debugging the build.
+    // We are testing if an empty function allows the project to compile.
+    /*
     const AddonOptions& options = Storage::getInstance().getAddonOptions();
     if (!options.ds4UartBridgeOptions.enabled) {
         return;
     }
 
-    // Check if the start byte is available
     if (uart_is_readable(UART_ID) && uart_getc(UART_ID) == START_BYTE) {
         uint8_t buffer[sizeof(UARTData) - 1];
-        int bytes_read = uart_read_blocking(UART_ID, buffer, sizeof(buffer));
+        size_t bytes_read = uart_read_blocking(UART_ID, buffer, sizeof(buffer));
 
         if (bytes_read == sizeof(buffer)) {
             UARTData receivedData;
             receivedData.startByte = START_BYTE;
             memcpy((uint8_t*)&receivedData + 1, buffer, sizeof(buffer));
 
-            // Validate checksum
             uint8_t checksum = 0;
             uint8_t* p = (uint8_t*)&receivedData;
             for (size_t i = 0; i < sizeof(UARTData) - 1; ++i) {
@@ -64,14 +62,11 @@ void DS4UARTBridgeAddon::preprocess() {
             }
 
             if (checksum == receivedData.checksum) {
-                // Checksum is valid, override the gamepad state
                 Gamepad *gamepad = Storage::getInstance().GetGamepad();
 
-                // Clear previous state to ensure a clean slate
                 gamepad->state.dpad = 0;
                 gamepad->state.buttons = 0;
 
-                // Apply new state
                 gamepad->state.buttons = receivedData.buttons;
                 gamepad->state.lx = receivedData.lx;
                 gamepad->state.ly = receivedData.ly;
@@ -80,7 +75,6 @@ void DS4UARTBridgeAddon::preprocess() {
                 gamepad->state.lt = receivedData.lt;
                 gamepad->state.rt = receivedData.rt;
 
-                // D-pad is part of the buttons mask in this protocol
                 if (gamepad->state.buttons & GAMEPAD_MASK_UP) gamepad->state.dpad |= GAMEPAD_MASK_UP;
                 if (gamepad->state.buttons & GAMEPAD_MASK_DOWN) gamepad->state.dpad |= GAMEPAD_MASK_DOWN;
                 if (gamepad->state.buttons & GAMEPAD_MASK_LEFT) gamepad->state.dpad |= GAMEPAD_MASK_LEFT;
@@ -88,6 +82,7 @@ void DS4UARTBridgeAddon::preprocess() {
             }
         }
     }
+    */
 }
 
 void DS4UARTBridgeAddon::process() {
