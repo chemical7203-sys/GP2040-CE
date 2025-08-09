@@ -175,4 +175,9 @@ export default {
 	'drv8833-rumble-pwm-frequency-label': 'PWM Frequency',
 	'drv8833-rumble-duty-min-label': 'Minimum Duty Cycle',
 	'drv8833-rumble-duty-max-label': 'Maximum Duty Cycle',
+	'ds4-uart-bridge-header-text': 'DS4 UART Bridge',
+	'ds4-uart-bridge-sub-header-text':
+		'Allows overriding gamepad inputs with data from a UART serial connection.',
+	'ds4-uart-bridge-tx-pin-label': 'TX Pin',
+	'ds4-uart-bridge-rx-pin-label': 'RX Pin',
 };

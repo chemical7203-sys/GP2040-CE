@@ -56,8 +56,13 @@ import ReactiveLED, {
 	reactiveLEDScheme,
 	reactiveLEDState,
 } from '../Addons/ReactiveLED';
+import DS4UARTBridge, {
+	ds4UartBridgeScheme,
+	ds4UartBridgeState,
+} from '../Addons/DS4UARTBridge';
 
 const schema = yup.object().shape({
+	...ds4UartBridgeScheme,
 	...analogScheme,
 	...analog1256Scheme,
 	...bootselScheme,
@@ -80,6 +85,7 @@ const schema = yup.object().shape({
 });
 
 const defaultValues = {
+	...ds4UartBridgeState,
 	...analogState,
 	...analog1256State,
 	...bootselState,
@@ -123,6 +129,7 @@ const ADDONS = [
 	PCF8575,
 	DRV8833Rumble,
 	ReactiveLED,
+	DS4UARTBridge,
 ];
 
 const FormContext = ({ setStoredData }) => {
