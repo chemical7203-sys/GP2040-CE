@@ -130,14 +130,30 @@ class DS4SenderApp:
                 if self.hid_device: self.hid_device.close()
 
     def data_loop(self):
+        last_report = None
         while self.running:
             try:
-                report = self.hid_device.read(64)
-                if report and report[0] == 0x01: # Standard USB report with motion
-                    self.process_and_send_report(report)
-                time.sleep(0.001)
+                # Read all pending reports to get the latest state
+                latest_report = None
+                while True:
+                    report = self.hid_device.read(64)
+                    if report is None:
+                        break # No more reports in queue
+                    if report[0] == 0x01:
+                        latest_report = report
+
+                if latest_report:
+                    last_report = latest_report
+
+                if last_report:
+                    self.process_and_send_report(last_report)
+
+                # Send data at a consistent rate (e.g., ~250Hz)
+                time.sleep(0.004)
+
             except Exception as e:
                 self.running = False
+                # Schedule GUI updates to run on the main thread
                 self.root.after(0, lambda: messagebox.showerror("Error", f"Device error: {e}"))
                 self.root.after(0, self.toggle_connection)
                 break

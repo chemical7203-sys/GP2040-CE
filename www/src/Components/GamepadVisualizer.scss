@@ -1,0 +1,183 @@
+.gamepad-visualizer-container {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: monospace;
+
+    h4 {
+        text-align: center;
+        margin-top: 0;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+    }
+
+    .gamepad-body {
+        position: relative;
+        width: 100%;
+        height: 200px; // Fixed height for layout
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .pressed {
+        background-color: #3498db !important;
+        color: white !important;
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    .dpad {
+        position: absolute;
+        top: 70px;
+        left: 30px;
+        width: 60px;
+        height: 60px;
+
+        .dpad-button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #555;
+
+            &.up { top: 0; left: 20px; border-radius: 3px 3px 0 0; }
+            &.down { bottom: 0; left: 20px; border-radius: 0 0 3px 3px; }
+            &.left { top: 20px; left: 0; border-radius: 3px 0 0 3px; }
+            &.right { top: 20px; right: 0; border-radius: 0 3px 3px 0; }
+        }
+    }
+
+    .action-buttons {
+        position: absolute;
+        top: 70px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+
+        .action-button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #777;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 10px;
+            color: white;
+
+            &.b1 { bottom: 0; left: 20px; } // Cross
+            &.b2 { top: 20px; right: 0; } // Circle
+            &.b3 { top: 20px; left: 0; } // Square
+            &.b4 { top: 0; left: 20px; } // Triangle
+        }
+    }
+
+    .analog-sticks {
+        position: absolute;
+        top: 140px;
+        left: 100px;
+        display: flex;
+        gap: 60px;
+
+        .stick-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stick-outer {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            border-radius: 50%;
+            border: 1px solid #999;
+        }
+
+        .stick-inner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+            transform: translate(-50%, -50%); // Center the stick
+        }
+
+        .stick-label {
+            font-size: 10px;
+            margin-top: 5px;
+        }
+    }
+
+    .shoulder-buttons {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .shoulder-button {
+            width: 50px;
+            height: 20px;
+            background-color: #666;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .trigger-container {
+            width: 120px;
+            font-size: 12px;
+            text-align: center;
+
+            .trigger-bar-outer {
+                width: 100%;
+                height: 10px;
+                background-color: #ccc;
+                border: 1px solid #999;
+                border-radius: 5px;
+                margin-top: 2px;
+            }
+
+            .trigger-bar-inner {
+                height: 100%;
+                background-color: #3498db;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    .center-buttons {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+
+        .center-button {
+            width: 30px;
+            height: 20px;
+            background-color: #666;
+            border-radius: 3px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 10px;
+        }
+    }
+
+    .motion-data {
+        margin-top: 15px; // Extra space after the gamepad body
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+
+        h5 { margin: 0 0 5px 0; }
+        p { margin: 2px 0; }
+    }
+}

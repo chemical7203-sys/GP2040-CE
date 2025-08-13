@@ -5,6 +5,7 @@
 
 // GP2040 Libraries
 #include "gamepad.h"
+#include "addons/uart_override.h" // Addon override
 #include "enums.pb.h"
 #include "storagemanager.h"
 #include "types.h"
@@ -320,8 +321,10 @@ void Gamepad::process()
 
 void Gamepad::read()
 {
-	if ( input_override == true ) { // 이 3줄을 추가해주세요
-		return;
+	// Check for UART override first
+	if (g_uart_input_override) {
+		this->state = g_uart_gamepad_state; // Copy the override state
+		return; // Skip reading physical pins
 	}
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
 
