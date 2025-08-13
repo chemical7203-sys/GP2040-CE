@@ -417,45 +417,24 @@ std::string getUsedPins()
 
 std::string getLiveState()
 {
-    const size_t capacity = JSON_OBJECT_SIZE(100);
+    const size_t capacity = JSON_OBJECT_SIZE(50);
     DynamicJsonDocument doc(capacity);
+    Gamepad *gamepad = Storage::getInstance().GetGamepad();
 
-    // Raw state from addon/physical inputs
-    JsonObject rawState = doc.createNestedObject("rawState");
-    Gamepad *rawGamepad = Storage::getInstance().GetGamepad();
-    rawState["dpad"] = rawGamepad->state.dpad;
-    rawState["buttons"] = rawGamepad->state.buttons;
-    rawState["lx"] = rawGamepad->state.lx;
-    rawState["ly"] = rawGamepad->state.ly;
-    rawState["rx"] = rawGamepad->state.rx;
-    rawState["ry"] = rawGamepad->state.ry;
-    rawState["lt"] = rawGamepad->state.lt;
-    rawState["rt"] = rawGamepad->state.rt;
-    rawState["accel_x"] = rawGamepad->state.accel_x;
-    rawState["accel_y"] = rawGamepad->state.accel_y;
-    rawState["accel_z"] = rawGamepad->state.accel_z;
-    rawState["gyro_x"] = rawGamepad->state.gyro_x;
-    rawState["gyro_y"] = rawGamepad->state.gyro_y;
-    rawState["gyro_z"] = rawGamepad->state.gyro_z;
-
-    // Processed state after SOCD and other cleaning
-    JsonObject processedState = doc.createNestedObject("processedState");
-    Gamepad *processedGamepad = Storage::getInstance().GetProcessedGamepad();
-    processedState["dpad"] = processedGamepad->state.dpad;
-    processedState["buttons"] = processedGamepad->state.buttons;
-    processedState["lx"] = processedGamepad->state.lx;
-    processedState["ly"] = processedGamepad->state.ly;
-    processedState["rx"] = processedGamepad->state.rx;
-    processedState["ry"] = processedGamepad->state.ry;
-    processedState["lt"] = processedGamepad->state.lt;
-    processedState["rt"] = processedGamepad->state.rt;
-    processedState["accel_x"] = processedGamepad->state.accel_x;
-    processedState["accel_y"] = processedGamepad->state.accel_y;
-    processedState["accel_z"] = processedGamepad->state.accel_z;
-    processedState["gyro_x"] = processedGamepad->state.gyro_x;
-    processedState["gyro_y"] = processedGamepad->state.gyro_y;
-    processedState["gyro_z"] = processedGamepad->state.gyro_z;
-
+    doc["dpad"] = gamepad->state.dpad;
+    doc["buttons"] = gamepad->state.buttons;
+    doc["lx"] = gamepad->state.lx;
+    doc["ly"] = gamepad->state.ly;
+    doc["rx"] = gamepad->state.rx;
+    doc["ry"] = gamepad->state.ry;
+    doc["lt"] = gamepad->state.lt;
+    doc["rt"] = gamepad->state.rt;
+    doc["accel_x"] = gamepad->state.accel_x;
+    doc["accel_y"] = gamepad->state.accel_y;
+    doc["accel_z"] = gamepad->state.accel_z;
+    doc["gyro_x"] = gamepad->state.gyro_x;
+    doc["gyro_y"] = gamepad->state.gyro_y;
+    doc["gyro_z"] = gamepad->state.gyro_z;
     doc["gpio"] = gpio_get_all();
 
     return serialize_json(doc);

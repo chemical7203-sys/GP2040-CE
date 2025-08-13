@@ -8,7 +8,6 @@
 #include "enums.pb.h"
 #include "storagemanager.h"
 #include "types.h"
-#include "addons/uart_override.h" // For global UART override
 
 #include "FlashPROM.h"
 #include "CRC32.h"
@@ -318,13 +317,6 @@ void Gamepad::process()
 
 void Gamepad::read()
 {
-	// Check for UART override first
-	if (g_uart_input_override) {
-		// Copy the global state and skip all hardware reads
-		memcpy(&state, (void*)&g_uart_gamepad_state, sizeof(GamepadState));
-		return;
-	}
-
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
 
 	// Get the midpoint value for the current mode
