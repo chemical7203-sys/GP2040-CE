@@ -150,6 +150,13 @@ struct GamepadState
 	float ema_1_y {GAMEPAD_JOYSTICK_MID};
 	float ema_2_x {GAMEPAD_JOYSTICK_MID};
 	float ema_2_y {GAMEPAD_JOYSTICK_MID};
+    // New fields for motion data
+    int16_t accel_x {0};
+    int16_t accel_y {0};
+    int16_t accel_z {0};
+    int16_t gyro_x {0};
+    int16_t gyro_y {0};
+    int16_t gyro_z {0};
 };
 
 // Convert the horizontal GamepadState dpad axis value into an analog value

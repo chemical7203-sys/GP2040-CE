@@ -32,7 +32,7 @@ struct GamepadButtonMapping
 class Gamepad {
 public:
 	Gamepad();
-
+	bool input_override = false;
 	void setup();
 	void reinit();
 	void process();

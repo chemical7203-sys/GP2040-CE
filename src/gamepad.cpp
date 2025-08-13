@@ -248,6 +248,9 @@ void Gamepad::reinit()
 
 void Gamepad::process()
 {
+	if ( input_override ) {
+		return;
+	}
 	// NOTE: Inverted X/Y-axis must run before SOCD and Dpad processing
 	if (options.invertXAxis) {
 		bool left = (state.dpad & mapDpadLeft->buttonMask) != 0;
@@ -317,6 +320,9 @@ void Gamepad::process()
 
 void Gamepad::read()
 {
+	if ( input_override == true ) { // 이 3줄을 추가해주세요
+		return;
+	}
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
 
 	// Get the midpoint value for the current mode

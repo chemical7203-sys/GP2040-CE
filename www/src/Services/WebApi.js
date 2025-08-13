@@ -678,12 +678,10 @@ function sanitizeRequest(request) {
 }
 
 async function getLiveState() {
-	try {
-		const response = await Http.get(`${baseUrl}/api/getLiveState`);
-		return response.data;
-	} catch (error) {
-		console.error(error);
-	}
+    // The try/catch is handled by the component making the call.
+    // Let the error propagate so the component can handle it.
+	const response = await Http.get(`${baseUrl}/api/getLiveState?t=${new Date().getTime()}`);
+	return response.data;
 }
 
 export default {
